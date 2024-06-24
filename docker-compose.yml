@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: llserver
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ll-local
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  server:
+    build: ./server
+    environment:
+      DATABASE_URL: postgres://llserver:password@db/ll-local
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+
+volumes:
+  db_data:
