@@ -20,8 +20,8 @@ services:
     environment:
       DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@db/${PG_DB}
     depends_on:
-      - db:
-          condition: service_healthy
+      db:
+        condition: service_healthy
     ports:
       - "8000:8000"
 
